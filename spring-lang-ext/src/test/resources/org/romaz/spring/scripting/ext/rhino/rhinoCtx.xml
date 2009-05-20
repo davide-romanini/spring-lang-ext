@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:lang-ext="http://romaz.org/schema/lang-ext"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd				
+				http://romaz.org/schema/lang-ext http://spring-lang-ext.googlecode.com/svn/schema/spring-lang-ext.xsd">
+    <lang-ext:rhino id="messenger"
+                    script-source="classpath:org/romaz/spring/scripting/ext/rhino/Messenger.js"
+	            script-interfaces="org.romaz.spring.scripting.ext.Messenger"
+                    config="rhinoConfig">
+        <lang-ext:property name="message" value="Hello World!"/>
+    </lang-ext:rhino>
+    <bean name="rhinoConfig" class="org.romaz.spring.scripting.ext.rhino.RhinoConfig">
+        <property name="sharedScope">
+            <bean class="org.romaz.spring.scripting.ext.rhino.RhinoConfig"
+                  factory-method="createRhinoScope" />
+        </property>
+        <property name="converter">
+            <bean class="org.romaz.spring.scripting.ext.rhino.DefaultRhinoObjectConverter" />
+        </property>
+    </bean>
+</beans>
