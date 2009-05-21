@@ -19,8 +19,12 @@ package org.romaz.spring.scripting.ext.rhino;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.mozilla.javascript.Callable;
 import org.mozilla.javascript.Context;
+import org.mozilla.javascript.EcmaError;
+import org.mozilla.javascript.JavaScriptException;
 import org.mozilla.javascript.NativeJavaClass;
 import org.mozilla.javascript.NativeJavaObject;
 import org.mozilla.javascript.RhinoException;
@@ -104,6 +108,7 @@ class RhinoScriptFactoryUtils {
         private final Scriptable jsObject;
         private final Scriptable sharedScope;
         private final RhinoObjectConverter converter;
+        private final Log logger = LogFactory.getLog(getClass());
         
         public JsObjectMethodInvocationHandler(Scriptable jsObject, Scriptable sharedScope, RhinoObjectConverter converter) {
             this.jsObject = jsObject;
@@ -133,7 +138,14 @@ class RhinoScriptFactoryUtils {
                 }
                 return convertResult(o, method.getReturnType());
             } catch (RhinoException e) {
-                throw e;
+                logger.error("RhinoException: " + e.getMessage(), e);
+                if(e instanceof EcmaError) {
+                    throw e;
+                }
+                if(e instanceof JavaScriptException) {
+                    throw new RuntimeException(e.details());
+                }
+                throw e.getCause();
             } finally {
                 Context.exit();
             }
