@@ -80,7 +80,7 @@ In the application context:
     </bean>
 }}}
 
-The example above implements a Spring Web Services PayloadEndpoint. When the `invoke` method is called, the DOMSource is converted in a native javascript XML object so you can treat it with E4X:
+The example above implements a Spring Web Services `PayloadEndpoint`. When the `invoke` method is called, the `DOMSource` is converted in a native javascript XML object so you can treat it with E4X:
 
 {{{
 ...
@@ -96,4 +96,4 @@ The example above implements a Spring Web Services PayloadEndpoint. When the `in
     }
 }}}
 
-The returned object is then reconverted into a DOMSource, to correctly implement the PayloadEndpoint interface.
+The returned object is then reconverted into a `DOMSource`, to correctly implement the `PayloadEndpoint` interface.
