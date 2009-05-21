@@ -32,4 +32,10 @@ public class RhinoScriptFactoryTest extends TestCase {
         Messenger messenger = (Messenger)ctx.getBean("messenger");
         assertEquals("Hello World!", messenger.getMessage());
     }
+    
+    public void testDynamicScriptInline() throws Exception {
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("rhinoCtx.xml", getClass());
+        Messenger messenger = (Messenger)ctx.getBean("messengerInline");
+        assertEquals("Hello from an inline script!", messenger.getMessage());
+    }
 }
