@@ -28,7 +28,7 @@ import org.mozilla.javascript.Scriptable;
 public class RhinoConfig {
     private RhinoObjectConverter converter;
     private Scriptable sharedScope;
-
+    
     public RhinoObjectConverter getConverter() {
         return converter;
     }

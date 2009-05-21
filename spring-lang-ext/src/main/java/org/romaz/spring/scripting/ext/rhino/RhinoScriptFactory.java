@@ -95,7 +95,7 @@ public class RhinoScriptFactory implements ScriptFactory {
                 try {                    
                     ctx.setLanguageVersion(Context.VERSION_1_7);
                     ctx.setOptimizationLevel(9);
-                    Script script = ctx.compileString(actualScriptSource.getScriptAsString(), toString(), 1, null);
+                    Script script = ctx.compileString(actualScriptSource.getScriptAsString(), scriptSourceLocator, 1, null);
                     Object scriptExecutionResult = script.exec(ctx, config.getSharedScope());
                     this.cached = processScriptResult(ctx, config.getSharedScope(), scriptExecutionResult, interfacesImplementedByScript);
                 } catch(RhinoException e) {                    
