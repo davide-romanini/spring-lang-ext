@@ -1,4 +1,3 @@
-
 Messenger = {
     getMessage: function() {
         return this.message;
